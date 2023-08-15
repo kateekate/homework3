@@ -2,11 +2,14 @@
 
 Array.prototype.myFilter = function (callback, thisArg) {
   const filteredValues = [];
+
   for (let i = 0; i < this.length; i++) {
-    if (callback.call(thisArg, this[i], i, this)) {
+    const callbackResult = callback.call(thisArg, this[i], i, this);
+    if (callbackResult) {
       filteredValues.push(this[i]);
     }
   }
+
   return filteredValues;
 }
 
@@ -14,6 +17,7 @@ Array.prototype.myFilter = function (callback, thisArg) {
 
 function createDebounceFunction(callback, ms) {
   let timeoutId;
+
   return function () {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(callback, ms);
